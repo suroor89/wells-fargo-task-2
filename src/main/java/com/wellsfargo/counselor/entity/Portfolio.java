@@ -1,9 +1,6 @@
 package com.wellsfargo.counselor.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 
@@ -14,8 +11,8 @@ public class Portfolio {
     @GeneratedValue()
     private long portfolioId;
 
-    @Column(nullable = false)
-    private long clientId;
+    @ManyToOne
+    private Client client;
 
     @Column(nullable = false)
     private Instant creationTime;
@@ -24,8 +21,8 @@ public class Portfolio {
 
     }
 
-    public Portfolio(long clientId, Instant creationTime){
-        this.clientId = clientId;
+    public Portfolio(Client client, Instant creationTime){
+        this.client = client;
         this.creationTime = creationTime;
     }
 
@@ -33,12 +30,12 @@ public class Portfolio {
         return portfolioId;
     }
 
-    public long getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Instant getCreationTime() {
